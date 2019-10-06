@@ -1,4 +1,4 @@
-# Raspberry Pi - Control an LED from a browser
+# Raspberry Pi - Control Kitchen Cabinet lights
 
 This project contains the tutorial files for EasyProgramming.net
 
@@ -8,6 +8,7 @@ This project contains the tutorial files for EasyProgramming.net
 2. led - this directory contains the Flask app that will act as our back end app
 
 # Tutorial
+This is currently in progress And it is a newer version of the following repo: https://github.com/naztronaut/RaspberryPi-browser-led-control
 A full video tutorial can be found on YouTube at https://www.youtube.com/watch?v=c6FOpPXbLjs
 <a href="https://www.youtube.com/watch?v=c6FOpPXbLjs" target="_blank"><img src="https://www.easyprogramming.net/img/ledBrowserControl.png" width="700px" alt="Control an LED from a browser"></a>
 
