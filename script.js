@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    $.ajax({
+        url: '/led/status.txt',
+        method: 'GET',
+        dataType: 'text',
+        success: function (result) {
+            console.log(result);
+        }
+    });
+
     $('#turnOnBtn').on('click', function(e){
         $.ajax({
             url: '/api/kitchen?status=on',
