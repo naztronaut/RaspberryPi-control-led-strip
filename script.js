@@ -75,11 +75,11 @@ $(document).ready(function() {
     function btnStatus() {
         console.log(status);
         if(status == 0) {
-            $(this).text('Turn On');
-            $(this).removeClass().addClass('btn btn-block btn-dark');
+            $('#btnToggle').text('Turn On');
+            $('#btnToggle').removeClass().addClass('btn btn-block btn-dark');
         } else {
-            $(this).text('Turn Off')
-            $(this).removeClass().addClass('btn btn-block btn-light');
+            $('#btnToggle').text('Turn Off')
+            $('#btnToggle').removeClass().addClass('btn btn-block btn-light');
         }
     }
 });
