@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#turnOnBtn').on('click', function(e){
         $.ajax({
-            url: '/led?status=on',
+            url: '/api/kitchen?status=on',
             method: 'GET',
             success: function(result) {
                 console.log(result);
@@ -12,7 +12,7 @@ $(document).ready(function() {
     
     $('#turnOffBtn').on('click', function(e){
         $.ajax({
-            url: '/led?status=off',
+            url: '/api/kitchen?status=off',
             method: 'GET',
             success: function(result) {
                 console.log(result);
@@ -34,7 +34,7 @@ $(document).ready(function() {
         }
         
         $.ajax({
-            url: '/led?status=' + status,
+            url: '/api/kitchen?status=' + status,
             method: 'GET',
             success: function(result) {
                 console.log(result);
