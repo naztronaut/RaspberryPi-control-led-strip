@@ -73,6 +73,7 @@ $(document).ready(function() {
     });
 
     function btnStatus() {
+        console.log(status);
         if(status == 0) {
             $(this).text('Turn On');
             $(this).removeClass().addClass('btn btn-block btn-dark');
