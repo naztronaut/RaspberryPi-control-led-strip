@@ -52,3 +52,14 @@ The `led.wsgi` file should be placed in the same directory as `led.py` which con
 If everything is set up correctly, the AJAX call will happen with the following url: `http://{{ip_addr}}/led?status=on`
 
 Only a status of `on` or `off` are accepted. Anything else will return a simple error message. Open up the JavaScript console for more info.  
+
+### Status.txt
+
+Currently, the `status.txt` file is used to store the status of the lights so that we can detect it and store it in memory. Because of how flask and apache works,
+the path in `led.py` for the txt file must be an absolute path. Currently it is the following:
+
+```
+/var/www/html/kitchenLights/led/status.txt
+```
+
+Edit it if your path differs from this repo. 
