@@ -14,13 +14,13 @@ def led():
 
     if status == "on":
         GPIO.output(18, GPIO.HIGH)
-        with open("status.txt", "w") as f:
+        with open("/var/www/html/kitchenLights/led/status.txt", "w") as f:
             f.write("1")
             f.close()
         return jsonify({"message": "Led successfully turned on"})
     elif status == "off":
         GPIO.output(18, GPIO.LOW)
-        with open("status.txt", "w") as f:
+        with open("/var/www/html/kitchenLights/led/status.txt", "w") as f:
             f.write("0")
             f.close()
         return jsonify({"message": "Led successfully turned off"})
