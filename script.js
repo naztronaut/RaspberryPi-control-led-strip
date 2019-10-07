@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: '/led/status.txt',
+        url: 'led/status.txt',
         method: 'GET',
         dataType: 'text',
         success: function (result) {
