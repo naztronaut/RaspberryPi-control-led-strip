@@ -14,12 +14,12 @@ def led():
 
     if status == "on":
         GPIO.output(18, GPIO.HIGH)
-        with open("status.json", "w") as f:
+        with open("status.txt", "w") as f:
             f.write(jsonify({"status": "on"}))
         return jsonify({"message": "Led successfully turned on"})
     elif status == "off":
         GPIO.output(18, GPIO.LOW)
-        with open("status.json", "w") as f:
+        with open("status.txt", "w") as f:
             f.write(jsonify({"status": "off"}))
         return jsonify({"message": "Led successfully turned off"})
     else:
