@@ -1,5 +1,5 @@
 let kitchenRight = '192.168.1.167';
-let kitchenLeft = '192.168.1.169';
+let kitchenLeft = 'http://192.168.1.169';
 let globalStatus = 0;
 let leftStatus = 0;
 let rightStatus = 0;
