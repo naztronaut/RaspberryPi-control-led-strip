@@ -27,7 +27,7 @@ def led():
 
 
 @app.route('/toggle', methods=['GET'])
-def led():
+def toggle():
     # status = request.args.get('status')
     with open("/var/www/html/kitchenLights/led/status.txt", "w+") as f:
         if f.read() == "1":
