@@ -12,7 +12,7 @@ $(document).ready(function() {
         success: function (result) {
             globalStatus = result;
             btnStatus();
-            singleButton(kitchenRight, result);
+            singleButton('kitchenRight', result);
         }
     });
 
@@ -21,7 +21,7 @@ $(document).ready(function() {
         method: 'GET',
         dataType: 'text',
         success: function (result) {
-            singleButton(kitchenLeft, result);
+            singleButton('kitchenLeft', result);
         }
     });
     
@@ -41,7 +41,7 @@ $(document).ready(function() {
             method: 'GET',
             success: function(result) {
                 console.log(result);
-                singleButton(kitchenRight, result);
+                singleButton('kitchenRight', result);
             },
             complete: btnStatus
         });
@@ -53,7 +53,7 @@ $(document).ready(function() {
         dataType: 'text',
         success: function (result) {
             // status = result;
-            singleButton(kitchenLeft, result);
+            singleButton('kitchenLeft', result);
         }
     });
         e.preventDefault();
