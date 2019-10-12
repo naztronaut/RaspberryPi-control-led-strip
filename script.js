@@ -1,4 +1,4 @@
-let kitchenRight = '192.168.1.167';
+let kitchenRight = 'http://192.168.1.167';
 let kitchenLeft = 'http://192.168.1.169';
 let globalStatus = 0;
 let leftStatus = 0;
@@ -72,9 +72,9 @@ $(document).ready(function() {
     $('#kitchenRight, #kitchenLeft').on('click', function(e){
         let side;
         if($(e.target).data('side') == 'left') {
-            side = 'kitchenLeft';
+            side = kitchenLeft;
         } else {
-            side = 'kitchenRight';
+            side = kitchenRight;
         }
         $.ajax({
             url: side + '/api/kitchen/toggle', //kitchen right
