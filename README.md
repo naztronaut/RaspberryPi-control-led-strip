@@ -2,6 +2,10 @@
 
 Controlling kitchen cabinet lights from your browser with a Raspberry Pi Zero.
 
+## Multi Branch
+
+This branch is dedicated to changing the frontend to control multiple Raspberry Pis at once
+
 ## Getting Started
 
 This project contains the tutorial files for EasyProgramming.net. 

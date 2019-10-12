@@ -1,43 +1,99 @@
-$(document).ready(function() {
-    let status = 0;
+let kitchenRight = '192.168.1.167';
+let kitchenLeft = '192.168.1.169';
+let globalStatus = 0;
+let leftStatus = 0;
+let rightStatus = 0;
 
+$(document).ready(function() {
     $.ajax({
-        url: 'led/status.txt',
+        url: 'led/status.txt', //kitchen right
         method: 'GET',
         dataType: 'text',
         success: function (result) {
-            status = result;
+            globalStatus = result;
             btnStatus();
+            singleButton(kitchenRight, result);
+        }
+    });
+
+    $.ajax({
+        url: kitchenLeft + '/kitchenLights/led/status.txt', //kitchen right
+        method: 'GET',
+        dataType: 'text',
+        success: function (result) {
+            singleButton(kitchenLeft, result);
         }
     });
     
     $('#btnToggle').on('click', function(e){
         let state;
-        if(status == 0) {
+        if(globalStatus == 0) {
             state = 'on';
-            status = 1;
+            globalStatus = 1;
         } else {
             state = 'off'
-            status = 0;
+            globalStatus = 0;
         }
+
+        //right
         $.ajax({
             url: '/api/kitchen?status=' + state,
             method: 'GET',
             success: function(result) {
                 console.log(result);
+                singleButton(kitchenRight, result);
             },
             complete: btnStatus
         });
+
+        //left
+        $.ajax({
+        url: kitchenLeft + '/api/kitchen?status=' + state, //kitchen right
+        method: 'GET',
+        dataType: 'text',
+        success: function (result) {
+            // status = result;
+            singleButton(kitchenLeft, result);
+        }
+    });
         e.preventDefault();
     });
 
     function btnStatus() {
-        if(status == 0) {
+        if(globalStatus == 0) {
             $('#btnToggle').text('Turn On');
             $('#btnToggle').removeClass().addClass('btn btn-block btn-dark');
         } else {
             $('#btnToggle').text('Turn Off')
             $('#btnToggle').removeClass().addClass('btn btn-block btn-light');
+        }
+    }
+
+    $('#kitchenRight, #kitchenLeft').on('click', function(e){
+        let side;
+        if($(e.target).data('side') == 'left') {
+            side = 'kitchenLeft';
+        } else {
+            side = 'kitchenRight';
+        }
+        $.ajax({
+            url: side + '/api/kitchen/toggle', //kitchen right
+            method: 'GET',
+            dataType: 'text',
+            success: function (result) {
+                singleButton(side, result);
+            }
+        });
+        e.preventDefault();
+    });
+
+    function singleButton(side, state) {
+        if(state == 0) {
+            $('#' + side).text('Turn On');
+            $('#' + side).removeClass().addClass('btn btn-block btn-dark');
+        } else {
+            $('#' + side).text('Turn Off')
+            $('#' + side).removeClass().addClass('btn btn-block btn-light');
         }
     }
 });
