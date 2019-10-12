@@ -72,9 +72,9 @@ $(document).ready(function() {
     $('#kitchenRight, #kitchenLeft').on('click', function(e){
         let side;
         if($(e.target).data('side') == 'left') {
-            side = kitchenLeft;
+            side = 'kitchenLeft';
         } else {
-            side = kitchenRight;
+            side = 'kitchenRight';
         }
         $.ajax({
             url: side + '/api/kitchen/toggle', //kitchen right
