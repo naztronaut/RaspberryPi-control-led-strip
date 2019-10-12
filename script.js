@@ -73,11 +73,13 @@ $(document).ready(function() {
         let side;
         if($(e.target).data('side') == 'left') {
             side = 'kitchenLeft';
+            url = kitchenLeft;
         } else {
             side = 'kitchenRight';
+            url = kitchenRight;
         }
         $.ajax({
-            url: side + '/api/kitchen/toggle', //kitchen right
+            url: url + '/api/kitchen/toggle', //kitchen right
             method: 'GET',
             dataType: 'text',
             success: function (result) {
