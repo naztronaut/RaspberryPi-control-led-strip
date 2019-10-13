@@ -83,14 +83,14 @@ $(document).ready(function() {
             method: 'GET',
             dataType: 'text',
             success: function (result) {
-                singleButton(side, result);
+                singleButton(side, result.status);
             }
         });
         e.preventDefault();
     });
 
     function singleButton(side, state) {
-        if(state == 0) {
+        if(state == "0") {
             $('#' + side).text('Turn On');
             $('#' + side).removeClass().addClass('btn btn-block btn-dark');
         } else {
