@@ -12,7 +12,7 @@ $(document).ready(function() {
         success: function (result) {
             globalStatus = result;
             btnStatus();
-            singleButton('kitchenRight', result);
+            singleButton('Right', result);
         }
     });
 
@@ -21,7 +21,7 @@ $(document).ready(function() {
         method: 'GET',
         dataType: 'text',
         success: function (result) {
-            singleButton('kitchenLeft', result);
+            singleButton('Left', result);
         }
     });
     
@@ -31,7 +31,7 @@ $(document).ready(function() {
             state = 'on';
             globalStatus = 1;
         } else {
-            state = 'off'
+            state = 'off';
             globalStatus = 0;
         }
 
@@ -41,7 +41,7 @@ $(document).ready(function() {
             method: 'GET',
             success: function(result) {
                 console.log(result);
-                singleButton('kitchenRight', globalStatus);
+                singleButton('Right', globalStatus);
             },
             complete: btnStatus
         });
@@ -53,7 +53,7 @@ $(document).ready(function() {
             dataType: 'text',
             success: function (result) {
                 // status = result;
-                singleButton('kitchenLeft', globalStatus);
+                singleButton('Left', globalStatus);
         }
     });
         e.preventDefault();
@@ -63,23 +63,23 @@ $(document).ready(function() {
         if(globalStatus == 0) {
             $('#btnToggle').text('Turn On');
             $('#btnToggle').removeClass().addClass('btn btn-block btn-dark');
-            singleButton('kitchenLeft', 0);
-            singleButton('kitchenRight', 0);
+            singleButton('Left', 0);
+            singleButton('Right', 0);
         } else {
             $('#btnToggle').text('Turn Off')
             $('#btnToggle').removeClass().addClass('btn btn-block btn-light');
-            singleButton('kitchenLeft', 1);
-            singleButton('kitchenRight', 1);
+            singleButton('Left', 1);
+            singleButton('Right', 1);
         }
     }
 
     $('#kitchenRight, #kitchenLeft').on('click', function(e){
         let side;
         if($(e.target).data('side') == 'left') {
-            side = 'kitchenLeft';
+            side = 'Left';
             url = kitchenLeft;
         } else {
-            side = 'kitchenRight';
+            side = 'Right';
             url = kitchenRight;
         }
         $.ajax({
@@ -97,11 +97,11 @@ $(document).ready(function() {
     function singleButton(side, state) {
         console.log(state);
         if(state == "0") {
-            $('#' + side).text('Turn On');
-            $('#' + side).removeClass().addClass('btn btn-block btn-dark');
+            $('#kitchen' + side).text(side + ' On');
+            $('#kitchen' + side).removeClass().addClass('btn btn-block btn-dark');
         } else {
-            $('#' + side).text('Turn Off')
-            $('#' + side).removeClass().addClass('btn btn-block btn-light');
+            $('#kitchen' + side).text(side + ' Off')
+            $('#kitchen' + side).removeClass().addClass('btn btn-block btn-light');
         }
     }
 });
