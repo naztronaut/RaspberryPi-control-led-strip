@@ -33,8 +33,8 @@ def toggle():
         if f.read() == 1:
             GPIO.output(18, GPIO.LOW)
             f.write("0")
-            return jsonify({"message": "Led successfully turned off", "status": "0"})
+            return jsonify({"message": "Led successfully turned off", "status": f.read()})
         else:
             GPIO.output(18, GPIO.HIGH)
             f.write("1")
-            return jsonify({"message": "Led successfully turned on", "status": "1"})
+            return jsonify({"message": "Led successfully turned on", "status": f.read()})
