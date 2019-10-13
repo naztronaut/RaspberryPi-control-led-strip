@@ -29,7 +29,7 @@ def led():
 @app.route('/toggle', methods=['GET'])
 def toggle():
     # status = request.args.get('status')
-    with open("/var/www/html/kitchenLights/led/status.txt", "r+") as f:
+    with open("/var/www/html/kitchenLights/led/status.txt", "w+") as f:
         if f.read() == 1:
             GPIO.output(18, GPIO.LOW)
             f.write("0")
