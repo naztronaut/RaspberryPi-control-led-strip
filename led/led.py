@@ -29,12 +29,12 @@ def led():
 @app.route('/toggle', methods=['GET'])
 def toggle():
     # status = request.args.get('status')
-    with open("/var/www/html/kitchenLights/led/status.txt", "w+") as f:
-        if f.read() == 1:
+    with open("/var/www/html/kitchenLights/led/status.txt", "r") as f:
+        if f.readline() == 1:
             GPIO.output(18, GPIO.LOW)
             f.write("0")
-            return jsonify({"message": "Led successfully turned off", "status": f.read()})
+            return jsonify({"message": "Led successfully turned off", "status": f.readline()})
         else:
             GPIO.output(18, GPIO.HIGH)
             f.write("1")
-            return jsonify({"message": "Led successfully turned on", "status": f.read()})
+            return jsonify({"message": "Led successfully turned on", "status": f.readline()})
