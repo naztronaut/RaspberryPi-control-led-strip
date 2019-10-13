@@ -17,6 +17,7 @@ body {
 
 #kitchenLeft, #kitchenRight {
     padding: 0.5em 0.7em !important;
+    margin-bottom: 50px;
 }
 
 .col {
@@ -42,6 +43,6 @@ body {
     font-weight: bold;
 }
 
-#btnToggle {
-    margin-bottom: 50px;
-}
+/*#btnToggle {*/
+    /*margin-bottom: 50px;*/
+/*}*/
