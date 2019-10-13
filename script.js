@@ -1,8 +1,6 @@
 let kitchenRight = 'http://192.168.1.169';
 let kitchenLeft = 'http://192.168.1.167';
 let globalStatus = 0;
-let leftStatus = 0;
-let rightStatus = 0;
 
 $(document).ready(function() {
     $.ajax({
@@ -40,7 +38,6 @@ $(document).ready(function() {
             url: '/api/kitchen?status=' + state,
             method: 'GET',
             success: function(result) {
-                console.log(result);
                 singleButton('Right', globalStatus);
             },
             complete: btnStatus
@@ -87,7 +84,6 @@ $(document).ready(function() {
             method: 'GET',
             dataType: 'json',
             success: function (result) {
-                console.log(result);
                 singleButton(side, result.status);
             }
         });
@@ -95,7 +91,6 @@ $(document).ready(function() {
     });
 
     function singleButton(side, state) {
-        console.log(state);
         if(state == "0") {
             $('#kitchen' + side).text(side + ' On');
             $('#kitchen' + side).removeClass().addClass('btn btn-block btn-dark');
