@@ -63,9 +63,13 @@ $(document).ready(function() {
         if(globalStatus == 0) {
             $('#btnToggle').text('Turn On');
             $('#btnToggle').removeClass().addClass('btn btn-block btn-dark');
+            singleButton('kitchenLeft', 0);
+            singleButton('kitchenRight', 0);
         } else {
             $('#btnToggle').text('Turn Off')
             $('#btnToggle').removeClass().addClass('btn btn-block btn-light');
+            singleButton('kitchenLeft', 1);
+            singleButton('kitchenRight', 1);
         }
     }
 
