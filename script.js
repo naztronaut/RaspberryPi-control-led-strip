@@ -48,12 +48,12 @@ $(document).ready(function() {
 
         //left
         $.ajax({
-        url: kitchenLeft + '/api/kitchen?status=' + state, //kitchen right
-        method: 'GET',
-        dataType: 'text',
-        success: function (result) {
-            // status = result;
-            singleButton('kitchenLeft', result);
+            url: kitchenLeft + '/api/kitchen?status=' + state, //kitchen right
+            method: 'GET',
+            dataType: 'text',
+            success: function (result) {
+                // status = result;
+                singleButton('kitchenLeft', result);
         }
     });
         e.preventDefault();
@@ -81,7 +81,7 @@ $(document).ready(function() {
         $.ajax({
             url: url + '/api/kitchen/toggle', //kitchen right
             method: 'GET',
-            dataType: 'text',
+            dataType: 'json',
             success: function (result) {
                 console.log(result);
                 singleButton(side, result.status);
