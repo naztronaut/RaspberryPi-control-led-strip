@@ -83,6 +83,7 @@ $(document).ready(function() {
             method: 'GET',
             dataType: 'text',
             success: function (result) {
+                console.log(result);
                 singleButton(side, result.status);
             }
         });
