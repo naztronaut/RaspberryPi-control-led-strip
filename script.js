@@ -41,7 +41,7 @@ $(document).ready(function() {
             method: 'GET',
             success: function(result) {
                 console.log(result);
-                singleButton('kitchenRight', result);
+                singleButton('kitchenRight', globalStatus);
             },
             complete: btnStatus
         });
@@ -53,7 +53,7 @@ $(document).ready(function() {
             dataType: 'text',
             success: function (result) {
                 // status = result;
-                singleButton('kitchenLeft', result);
+                singleButton('kitchenLeft', globalStatus);
         }
     });
         e.preventDefault();
