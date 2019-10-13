@@ -32,9 +32,9 @@ def toggle():
     with open("/var/www/html/kitchenLights/led/status.txt", "r") as f:
         if f.readline() == 1:
             GPIO.output(18, GPIO.LOW)
-            f.write("0")
+            # f.write("0")
             return jsonify({"message": "Led successfully turned off", "status": f.readline()})
         else:
             GPIO.output(18, GPIO.HIGH)
-            f.write("1")
+            # f.write("1")
             return jsonify({"message": "Led successfully turned on", "status": f.readline()})
