@@ -30,7 +30,7 @@ def led():
 def toggle():
     # status = request.args.get('status')
     with open("/var/www/html/kitchenLights/led/status.txt", "w+") as f:
-        if f.read() == "1":
+        if f.read() == 1:
             GPIO.output(18, GPIO.LOW)
             f.write("0")
             return jsonify({"message": "Led successfully turned off", "status": "0"})
