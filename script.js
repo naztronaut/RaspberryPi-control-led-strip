@@ -90,6 +90,7 @@ $(document).ready(function() {
     });
 
     function singleButton(side, state) {
+        console.log(state);
         if(state == "0") {
             $('#' + side).text('Turn On');
             $('#' + side).removeClass().addClass('btn btn-block btn-dark');
