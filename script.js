@@ -3,8 +3,9 @@ let kitchenLeft = 'http://192.168.1.167';
 let globalStatus = 0;
 
 $(document).ready(function() {
+    let cacheBuster = new Date().getTime();
     $.ajax({
-        url: 'led/status.txt', //kitchen right
+        url: 'led/status.txt?' + cacheBuster, //kitchen right
         method: 'GET',
         dataType: 'text',
         cache: false,
@@ -16,7 +17,7 @@ $(document).ready(function() {
     });
 
     $.ajax({
-        url: kitchenLeft + '/kitchenLights/led/status.txt', //kitchen right
+        url: kitchenLeft + '/kitchenLights/led/status.txt?' + cacheBuster, //kitchen right
         method: 'GET',
         dataType: 'text',
         cache: false,
@@ -82,7 +83,7 @@ $(document).ready(function() {
             url = kitchenRight;
         }
         $.ajax({
-            url: url + '/api/kitchen/toggle', //kitchen right
+            url: url + '/api/kitchen/toggle?' + cacheBuster, //kitchen right
             method: 'GET',
             dataType: 'json',
             cache: false,
@@ -98,7 +99,7 @@ $(document).ready(function() {
             $('#kitchen' + side).text(side + ' On');
             $('#kitchen' + side).removeClass().addClass('btn btn-block btn-dark');
         } else {
-            $('#kitchen' + side).text(side + ' Off')
+            $('#kitchen' + side).text(side + ' Off');
             $('#kitchen' + side).removeClass().addClass('btn btn-block btn-light');
         }
     }
