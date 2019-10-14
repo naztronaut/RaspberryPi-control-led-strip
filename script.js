@@ -1,8 +1,9 @@
-let kitchenRight = 'http://192.168.1.169';
+let kitchenRight = 'http://192.168.1.169'; // Parent Pi - should change references below if you want kitchenLeft to be parent
 let kitchenLeft = 'http://192.168.1.167';
 let globalStatus = 0;
 
 $(document).ready(function() {
+    // Cache buster added because caching was a big problem on mobile
     let cacheBuster = new Date().getTime();
     $.ajax({
         url: 'led/status.txt?' + cacheBuster, //kitchen right
@@ -59,6 +60,7 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+    // Main big button - uses kitchenRight for master data.
     function btnStatus() {
         if(globalStatus == 0) {
             $('#btnToggle').text('Turn On');
@@ -73,15 +75,16 @@ $(document).ready(function() {
         }
     }
 
-    $('#kitchenRight, #kitchenLeft').on('click', function(e){
-        let side;
-        if($(e.target).data('side') == 'left') {
-            side = 'Left';
-            url = kitchenLeft;
-        } else {
-            side = 'Right';
-            url = kitchenRight;
-        }
+    $('.single').on('click', function(e){
+        // let side;
+        // if($(e.target).data('side') == 'left') {
+        //     side = 'Left';
+        //     url = kitchenLeft;
+        // } else {
+        //     side = 'Right';
+        //     url = kitchenRight;
+        // }
+        let url = 'kitchen' + $(e.target).data('side');
         $.ajax({
             url: url + '/api/kitchen/toggle?' + cacheBuster, //kitchen right
             method: 'GET',

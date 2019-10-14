@@ -45,6 +45,13 @@ the Raspberry Pi and some things we learned with JavaScript and jQuery. If you g
 
 Follow the tutorial here to learn how to run a Flask app behind Apache: https://www.easyprogramming.net/raspberrypi/pi_flask_apache.php
 
+As stated in the above tutorial and in the [Prerequisites](#prerequisites), here's a very quick checklist for this project:
+
+* [ ] Apache
+* [ ] venv (virtual environment)
+* [ ] `activate-this.py` inside your venv
+* [ ] Mod-WSGI [More info below](#apche-and-wsgi)
+
 Since we are running `RPi.GPIO` from a virtual environment, we need to take one extra step after activating venv and install the package:
 
 ```bash
@@ -53,30 +60,61 @@ pip3 install RPi.GPIO
 
 We need to do this because our virtual environment can't access the globally installed RPi.GPIO package
 
-### Configurations
+### Configuration
 
+#### JavaScript - Script.js
 The `script.js` has jQuery that calls the Flask app using simple AJAX calls. They assume that the path for the flask app is `/api/kitchen` - 
 if you use another path, change this in the JavaScript to avoid getting 404s on your AJAX calls. You can also modify the API endpoints in `led/led.py` - I used 'kitchen'
 as the name because these will be controlling my kitchen cabinet lights.
 
-Name necessary path edits to the `utils/apache-led.conf` configuration file and place it in the appropriate Apache/sites-available directory and enable it with with:
+##### Cache Busting
+
+I use a basic cache busting system in the JavaScript by looking at the current time for the request and appending it to the AJAX request looking for `status.txt` because 
+I've noticed that browsers love to store this in memory, especially mobile browsers. This ensures that we don't have to worry about caching. 
+
+#### Apache and WSGI
+
+The `led.wsgi` file should be placed in the same directory as `led.py` which contains your Flask controllers. Make sure the paths for `activate_this.py` and `led.py` match
+your installation. If you rename the flask controller, you have edit the `wsgi` file to reflect the changes. 
+
+Take the `utils/apache-led.conf` configuration file and place it in the appropriate Apache/sites-available directory and enable it with with:
 
 ```bash
 sudo a2ensite apache-led.conf
 ```
 
-Feel free to use yur own configuration! This should be used as a template. 
+Feel free to use your own configuration and name it anything you want! This should be used as a template.
+ 
+Once that's done, restart Apache with:
 
-The `led.wsgi` file should be placed in the same directory as `led.py` which contains your Flask controllers. Make sure the paths for `activate_this.py` and `led.py` match
-your installation. If you rename the flask controller, you have edit the `wsgi` file to reflect the changes. 
+```bash
+sudo service apache2 restart
+```
+
+If you get a WSGI error, your Pi may not have Mod-WSGI installed. Run the following and restart apache:
+
+```bash
+sudo apt install libapache2-mod-wsgi-py3 -y
+``` 
+
+**Note** that the `multi` branch contains a line in the 
+configuration to enable `CORS` from all origins. If you don't want to enable CORS and want to handle these requests another way, remove this line in `apache-led.conf`:
+
+```
+Header set Access-Control-Allow-Origin "*"
+```
+
+Technically,  you only need the above line in any child Raspberry Pi since the calls are being made from the parent to the child. As long as you don't open your Pi
+to the outside world, you should be fine. You can also specify which origins are allowed to make requests.  
 
 If everything is set up correctly, the AJAX call will happen with the following url: `http://{{ip_addr}}/api/kitchen?status=on`
 
 Only a status of `on` or `off` are accepted. Anything else will return a simple error message. Open up the JavaScript console for more info.  
 
+
 ### Status.txt
 
-Currently, the `status.txt` file is used to store the status of the lights so that we can detect it and store it in memory. Because of how flask and apache works,
+Currently, the `status.txt` file is used to store the status of the lights so that we can detect it and store it in memory. Because of how Flask and Apache works,
 the path in `led.py` for the txt file must be an absolute path. Currently it is the following:
 
 ```
@@ -84,6 +122,7 @@ the path in `led.py` for the txt file must be an absolute path. Currently it is 
 ```
 
 Edit it if your path differs from this repo. 
+
 
 ## Authors
 * **Nazmus Nasir** - [Nazm.us](https://nazm.us) - Owner of EasyProgramming.net
