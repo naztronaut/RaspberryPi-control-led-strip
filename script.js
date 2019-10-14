@@ -7,6 +7,7 @@ $(document).ready(function() {
         url: 'led/status.txt', //kitchen right
         method: 'GET',
         dataType: 'text',
+        cache: false,
         success: function (result) {
             globalStatus = result;
             btnStatus();
@@ -18,6 +19,7 @@ $(document).ready(function() {
         url: kitchenLeft + '/kitchenLights/led/status.txt', //kitchen right
         method: 'GET',
         dataType: 'text',
+        cache: false,
         success: function (result) {
             singleButton('Left', result);
         }
@@ -83,6 +85,7 @@ $(document).ready(function() {
             url: url + '/api/kitchen/toggle', //kitchen right
             method: 'GET',
             dataType: 'json',
+            cache: false,
             success: function (result) {
                 singleButton(side, result.status);
             }
