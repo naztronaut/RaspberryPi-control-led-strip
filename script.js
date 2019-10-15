@@ -1,10 +1,18 @@
-let kitchenRight = 'http://192.168.1.169'; // Parent Pi - should change references below if you want kitchenLeft to be parent
-let kitchenLeft = 'http://192.168.1.167';
+let config = {
+    multi: true,
+    kitchenRight: 'http://192.168.1.169',
+    kitchenLeft: 'http://192.168.1.167' // Optional - only required if `multi` is true
+};
+// let kitchenRight = 'http://192.168.1.169'; // Parent Pi - should change references below if you want kitchenLeft to be parent
+// let kitchenLeft = 'http://192.168.1.167';
 let globalStatus = 0;
 
 $(document).ready(function() {
     // Cache buster added because caching was a big problem on mobile
     let cacheBuster = new Date().getTime();
+    if(config.multi) {
+        $("#multi").show();
+    }
     $.ajax({
         url: 'led/status.txt?' + cacheBuster, //kitchen right
         method: 'GET',
@@ -13,19 +21,23 @@ $(document).ready(function() {
         success: function (result) {
             globalStatus = result;
             btnStatus();
-            singleButton('Right', result);
+            if(config.multi) {
+                singleButton('Right', result);
+            }
         }
     });
 
-    $.ajax({
-        url: kitchenLeft + '/kitchenLights/led/status.txt?' + cacheBuster, //kitchen right
-        method: 'GET',
-        dataType: 'text',
-        cache: false,
-        success: function (result) {
-            singleButton('Left', result);
-        }
-    });
+    if(config.multi) {
+        $.ajax({
+            url: config.kitchenLeft + '/kitchenLights/led/status.txt?' + cacheBuster, //kitchen right
+            method: 'GET',
+            dataType: 'text',
+            cache: false,
+            success: function (result) {
+                singleButton('Left', result);
+            }
+        });
+    }
     
     $('#btnToggle').on('click', function(e){
         let state;
@@ -42,21 +54,24 @@ $(document).ready(function() {
             url: '/api/kitchen?status=' + state,
             method: 'GET',
             success: function(result) {
-                singleButton('Right', globalStatus);
+                if(config.multi) {
+                    singleButton('Right', globalStatus);
+                }
             },
             complete: btnStatus
         });
 
-        //left
-        $.ajax({
-            url: kitchenLeft + '/api/kitchen?status=' + state, //kitchen right
-            method: 'GET',
-            dataType: 'text',
-            success: function (result) {
-                // status = result;
-                singleButton('Left', globalStatus);
+        if(config.multi) {
+            //left
+            $.ajax({
+                url: config.kitchenLeft + '/api/kitchen?status=' + state, //kitchen right
+                method: 'GET',
+                dataType: 'text',
+                success: function (result) {
+                    singleButton('Left', globalStatus);
+                }
+            });
         }
-    });
         e.preventDefault();
     });
 
@@ -65,45 +80,43 @@ $(document).ready(function() {
         if(globalStatus == 0) {
             $('#btnToggle').text('Turn On');
             $('#btnToggle').removeClass().addClass('btn btn-block btn-dark');
-            singleButton('Left', 0);
-            singleButton('Right', 0);
+            if(config.multi) {
+                singleButton('Left', 0);
+                singleButton('Right', 0);
+            }
         } else {
             $('#btnToggle').text('Turn Off')
             $('#btnToggle').removeClass().addClass('btn btn-block btn-light');
-            singleButton('Left', 1);
-            singleButton('Right', 1);
+            if(config.multi) {
+                singleButton('Left', 1);
+                singleButton('Right', 1);
+            }
         }
     }
 
-    $('.single').on('click', function(e){
-        // let side;
-        // if($(e.target).data('side') == 'left') {
-        //     side = 'Left';
-        //     url = kitchenLeft;
-        // } else {
-        //     side = 'Right';
-        //     url = kitchenRight;
-        // }
-        let url = 'kitchen' + $(e.target).data('side');
-        $.ajax({
-            url: url + '/api/kitchen/toggle?' + cacheBuster, //kitchen right
-            method: 'GET',
-            dataType: 'json',
-            cache: false,
-            success: function (result) {
-                singleButton(side, result.status);
-            }
+    if(config.multi) {
+        $('.single').on('click', function (e) {
+            let url = 'kitchen' + $(e.target).data('side');
+            $.ajax({
+                url: url + '/api/kitchen/toggle?' + cacheBuster, //kitchen right
+                method: 'GET',
+                dataType: 'json',
+                cache: false,
+                success: function (result) {
+                    singleButton(side, result.status);
+                }
+            });
+            e.preventDefault();
         });
-        e.preventDefault();
-    });
 
-    function singleButton(side, state) {
-        if(state == "0") {
-            $('#kitchen' + side).text(side + ' On');
-            $('#kitchen' + side).removeClass().addClass('btn btn-block btn-dark');
-        } else {
-            $('#kitchen' + side).text(side + ' Off');
-            $('#kitchen' + side).removeClass().addClass('btn btn-block btn-light');
+        function singleButton(side, state) {
+            if (state == "0") {
+                $('#kitchen' + side).text(side + ' On');
+                $('#kitchen' + side).removeClass().addClass('btn btn-block btn-dark');
+            } else {
+                $('#kitchen' + side).text(side + ' Off');
+                $('#kitchen' + side).removeClass().addClass('btn btn-block btn-light');
+            }
         }
     }
 });

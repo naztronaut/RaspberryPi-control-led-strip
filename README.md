@@ -2,9 +2,22 @@
 
 Controlling kitchen cabinet lights from your browser with a Raspberry Pi Zero.
 
-## Multi Branch
+<img src="./img/thumbnail.png" width="700px" alt="Kitchen Cabinet Raspberry Pi Lights">
 
-This branch is dedicated to changing the frontend to control multiple Raspberry Pis at once
+
+## Configurable Branch
+
+This branch allows you to configure whether or not you want to control a single Pi or two Pis (Kitchen Left and Right). You can configure the options on `script.js` as follows:
+```javascript
+let config = {
+    multi: true,
+    kitchenRight: 'http://{{ip_addr}',
+    kitchenLeft: 'http://{{ip_addr}' // Optional - only required if `multi` is true
+};
+```
+
+If you don't want to control multiple lights, change `multi` to `false` and only fill out the `kitchenRight` property with the address. If you want both, make sure 
+`multi` is true and that both `kitchenRight` and `kitchenLeft` have valid Pi IP addresses. The smaller buttons will either show or be hidden based on your settings.
 
 ## Getting Started
 
@@ -29,6 +42,24 @@ A full video tutorial can be found on YouTube at https://www.youtube.com/watch?v
 <a href="https://www.youtube.com/watch?v=c6FOpPXbLjs" target="_blank"><img src="https://www.easyprogramming.net/img/ledBrowserControl.png" width="700px" alt="Control an LED from a browser"></a>
 
 More information on the tutorial can be found at https://www.easyprogramming.net/raspberrypi/browser_control_led.php
+
+### Hardware
+
+In order to complete this project, you will need some of these hardware:
+
+* [ ] Raspberry Pi - can use Zero, Zero W, 2, 3, 4
+* [ ] *(Optional)* Wireless dongle - If you are using the basic Pi 0 like I am, you will need to be able to connect to your local network using a Dongle. 
+This is not necessary for the other versions of the Pi.
+* [ ] LED Strip - Strips with only power and ground will work for this project. RGB or RGBW/W will not work. 
+* [ ] Pi Power Supply - need 5V to your Pi
+* [ ] LED Strip Power Supply - 12V power adapter passing 1-2 Amps of current will be sufficient. This should also work with a 24V LED Strip.
+* [ ] Relay module - This is the electromechanical switch that your Pi will control. You can use a Transistor if you want! It'll be faster and without the clicking noise.
+* [ ] Wiring - a simple power/ground wire will do. Most will use a red and black combo. 
+* [ ] *(Optional)* Aluminum Extrusion - although not necessary, an aluminum extrusion will help dissipate heat as well as make your installation more sturdy.
+* [ ] *(Optional)* Pi Case - Something to house your Pi and Relay. You can make your own or if you want, you can just leave it as is but be careful of shorts 
+and electric shocks!
+* [ ] *(Optional)* Soldering Iron - if you are comfortable, it is best to solder the lights and connections in place so they don't disconnect easily. 
+* [ ] Tools - a wire cutter/stripper would be most helpful to you.  
 
 ### Prerequisites
 The prerequisites for this tutorial is the same as the last because everything in this tutorial is the end product of what we've learned so far about 
@@ -123,6 +154,9 @@ the path in `led.py` for the txt file must be an absolute path. Currently it is 
 
 Edit it if your path differs from this repo. 
 
+### API endpoints
+
+#### `/api/kitchen?status=on/off`
 
 ## Authors
 * **Nazmus Nasir** - [Nazm.us](https://nazm.us) - Owner of EasyProgramming.net
