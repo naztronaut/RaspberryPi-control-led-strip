@@ -2,7 +2,9 @@
 
 Controlling kitchen cabinet lights from your browser with a Raspberry Pi Zero.
 
-<img src="./img/thumbnail.png" width="600px" alt="Kitchen Cabinet Raspberry Pi Lights" style="border: 1px solid black" border="1">
+<center>
+<img src="./img/thumbnail.png" width="700px" alt="Kitchen Cabinet Raspberry Pi Lights">
+</center>
 
 
 ## Configurable Branch
