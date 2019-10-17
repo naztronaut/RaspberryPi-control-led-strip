@@ -14,7 +14,7 @@ $(document).ready(function() {
         $("#multi").show();
     }
     $.ajax({
-        url: config.kitchenRight + '/led/status.txt?' + cacheBuster, //kitchen right
+        url: config.kitchenRight + '/kitchenLights/led/status.txt?' + cacheBuster, //kitchen right
         method: 'GET',
         dataType: 'text',
         cache: false,
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     if(config.multi) {
         $.ajax({
-            url: config.kitchenLeft + '/led/status.txt?' + cacheBuster, //kitchen right
+            url: config.kitchenLeft + '/kitchenLights/led/status.txt?' + cacheBuster, //kitchen right
             method: 'GET',
             dataType: 'text',
             cache: false,
