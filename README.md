@@ -137,8 +137,13 @@ configuration to enable `CORS` from all origins. If you don't want to enable COR
 Header set Access-Control-Allow-Origin "*"
 ```
 
-Technically,  you only need the above line in any child Raspberry Pi since the calls are being made from the parent to the child. As long as you don't open your Pi
-to the outside world, you should be fine. You can also specify which origins are allowed to make requests.  
+IF you have this enable, you must enable `mod_headers` on your Pi with the following command for this to work:
+
+```bash
+sudo a2enmod headers
+```
+
+As long as you don't open your Pi to the outside world, you should be fine. You can also specify which origins are allowed to make requests.  
 
 If everything is set up correctly, the AJAX call will happen with the following url: `http://{{ip_addr}}/api/kitchen?status=on`
 
