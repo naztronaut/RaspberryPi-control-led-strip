@@ -14,7 +14,7 @@ $(document).ready(function() {
         $("#multi").show();
     }
     $.ajax({
-        url: 'led/status.txt?' + cacheBuster, //kitchen right
+        url: config.kitchenRight + '/led/status.txt?' + cacheBuster, //kitchen right
         method: 'GET',
         dataType: 'text',
         cache: false,
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     if(config.multi) {
         $.ajax({
-            url: config.kitchenLeft + '/kitchenLights/led/status.txt?' + cacheBuster, //kitchen right
+            url: config.kitchenLeft + '/led/status.txt?' + cacheBuster, //kitchen right
             method: 'GET',
             dataType: 'text',
             cache: false,
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
         //right
         $.ajax({
-            url: '/api/kitchen?status=' + state,
+            url: config.kitchenRight + '/api/kitchen?status=' + state,
             method: 'GET',
             success: function(result) {
                 if(config.multi) {
@@ -96,7 +96,17 @@ $(document).ready(function() {
 
     if(config.multi) {
         $('.single').on('click', function (e) {
-            let url = 'kitchen' + $(e.target).data('side');
+            let side;
+            let url;
+            if($(e.target).data('side') == 'Left') {
+                side = 'Left';
+                url = config.kitchenLeft;
+            } else {
+                side = 'Right';
+                url = config.kitchenRight;
+            }
+            // let url = 'kitchen' + $(e.target).data('side');
+            console.log(url);
             $.ajax({
                 url: url + '/api/kitchen/toggle?' + cacheBuster, //kitchen right
                 method: 'GET',
