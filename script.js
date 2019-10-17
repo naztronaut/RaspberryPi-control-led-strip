@@ -3,8 +3,7 @@ let config = {
     kitchenRight: 'http://192.168.1.169',
     kitchenLeft: 'http://192.168.1.167' // Optional - only required if `multi` is true
 };
-// let kitchenRight = 'http://192.168.1.169'; // Parent Pi - should change references below if you want kitchenLeft to be parent
-// let kitchenLeft = 'http://192.168.1.167';
+
 let globalStatus = 0;
 
 $(document).ready(function() {
@@ -105,15 +104,12 @@ $(document).ready(function() {
                 side = 'Right';
                 url = config.kitchenRight;
             }
-            // let url = 'kitchen' + $(e.target).data('side');
-            console.log(url);
             $.ajax({
                 url: url + '/api/kitchen/toggle?' + cacheBuster, //kitchen right
                 method: 'GET',
                 dataType: 'json',
                 cache: false,
                 success: function (result) {
-                    console.log(result);
                     singleButton(side, result.status);
                 }
             });

@@ -7,9 +7,10 @@ Controlling kitchen cabinet lights from your browser with a Raspberry Pi Zero.
 </center>
 
 
-## Configurable Branch
+## Configurable options
 
-This branch allows you to configure whether or not you want to control a single Pi or two Pis (Kitchen Left and Right). You can configure the options on `script.js` as follows:
+This config object allows you to configure whether or not you want to control a single Pi or two Pis (Kitchen Left and Right). 
+You can configure the options on `script.js` as follows:
 ```javascript
 let config = {
     multi: true,
@@ -93,9 +94,9 @@ pip3 install RPi.GPIO
 
 We need to do this because our virtual environment can't access the globally installed RPi.GPIO package
 
-### Configuration
+### The Stack
 
-#### JavaScript - Script.js
+#### JavaScript - Script.js - Frontend
 The `script.js` has jQuery that calls the Flask app using simple AJAX calls. They assume that the path for the flask app is `/api/kitchen` - 
 if you use another path, change this in the JavaScript to avoid getting 404s on your AJAX calls. You can also modify the API endpoints in `led/led.py` - I used 'kitchen'
 as the name because these will be controlling my kitchen cabinet lights.
@@ -105,7 +106,7 @@ as the name because these will be controlling my kitchen cabinet lights.
 I use a basic cache busting system in the JavaScript by looking at the current time for the request and appending it to the AJAX request looking for `status.txt` because 
 I've noticed that browsers love to store this in memory, especially mobile browsers. This ensures that we don't have to worry about caching. 
 
-#### Apache and WSGI
+#### Apache and WSGI - Web Server
 
 The `led.wsgi` file should be placed in the same directory as `led.py` which contains your Flask controllers. Make sure the paths for `activate_this.py` and `led.py` match
 your installation. If you rename the flask controller, you have edit the `wsgi` file to reflect the changes. 
