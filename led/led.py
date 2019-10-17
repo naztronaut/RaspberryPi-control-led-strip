@@ -24,3 +24,24 @@ def led():
         return jsonify({"message": "Led successfully turned off"})
     else:
         return jsonify({"message": "Not a valid status"})
+
+
+@app.route('/toggle', methods=['GET'])
+def toggle():
+    # status = request.args.get('status')
+    status = "0"
+    with open("/var/www/html/kitchenLights/led/status.txt", "r") as f:
+        status = f.read()
+        if status == "1":
+            GPIO.output(18, GPIO.LOW)
+            with open("/var/www/html/kitchenLights/led/status.txt", "w") as f:
+                f.write("0")
+                status = "0"
+            return jsonify({"message": "Led successfully turned off", "status": status})
+        else:
+            GPIO.output(18, GPIO.HIGH)
+            with open("/var/www/html/kitchenLights/led/status.txt", "w") as f:
+                f.write("1")
+                status = "1"
+            # f.write("1")
+            return jsonify({"message": "Led successfully turned on", "status": status})

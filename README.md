@@ -2,9 +2,25 @@
 
 Controlling kitchen cabinet lights from your browser with a Raspberry Pi Zero.
 
-## Master Branch
+<center>
+<img src="./img/thumbnail.png" width="700px" alt="Kitchen Cabinet Raspberry Pi Lights">
+</center>
 
-This branch is dedicated to changing the frontend to control one single Raspberry Pi. Check out the `multi` branch if you want to control multiples.
+## Configurable options
+
+This config object allows you to configure whether or not you want to control a single Pi or two Pis (Kitchen Left and Right). 
+You can configure the options on `script.js` as follows:
+```javascript
+let config = {
+    multi: true,
+    kitchenRight: 'http://{{ip_addr}',
+    kitchenLeft: 'http://{{ip_addr}' // Optional - only required if `multi` is true
+};
+```
+
+If you don't want to control multiple lights, change `multi` to `false` and only fill out the `kitchenRight` property with the address. If you want both, make sure 
+`multi` is true and that both `kitchenRight` and `kitchenLeft` have valid Pi IP addresses. The smaller buttons will either show or be hidden based on your settings.
+
 
 ## Getting Started
 
@@ -29,6 +45,24 @@ A full video tutorial can be found on YouTube at https://www.youtube.com/watch?v
 <a href="https://www.youtube.com/watch?v=c6FOpPXbLjs" target="_blank"><img src="https://www.easyprogramming.net/img/ledBrowserControl.png" width="700px" alt="Control an LED from a browser"></a>
 
 More information on the tutorial can be found at https://www.easyprogramming.net/raspberrypi/browser_control_led.php
+
+### Hardware
+
+In order to complete this project, you will need some of these hardware:
+
+* [ ] Raspberry Pi - can use Zero, Zero W, 2, 3, 4
+* [ ] *(Optional)* Wireless dongle - If you are using the basic Pi 0 like I am, you will need to be able to connect to your local network using a Dongle. 
+This is not necessary for the other versions of the Pi.
+* [ ] LED Strip - Strips with only power and ground will work for this project. RGB or RGBW/W will not work. 
+* [ ] Pi Power Supply - need 5V to your Pi
+* [ ] LED Strip Power Supply - 12V power adapter passing 1-2 Amps of current will be sufficient. This should also work with a 24V LED Strip.
+* [ ] Relay module - This is the electromechanical switch that your Pi will control. You can use a Transistor if you want! It'll be faster and without the clicking noise.
+* [ ] Wiring - a simple power/ground wire will do. Most will use a red and black combo. 
+* [ ] *(Optional)* Aluminum Extrusion - although not necessary, an aluminum extrusion will help dissipate heat as well as make your installation more sturdy.
+* [ ] *(Optional)* Pi Case - Something to house your Pi and Relay. You can make your own or if you want, you can just leave it as is but be careful of shorts 
+and electric shocks!
+* [ ] *(Optional)* Soldering Iron - if you are comfortable, it is best to solder the lights and connections in place so they don't disconnect easily. 
+* [ ] Tools - a wire cutter/stripper would be most helpful to you.  
 
 ### Prerequisites
 The prerequisites for this tutorial is the same as the last because everything in this tutorial is the end product of what we've learned so far about 
@@ -60,9 +94,10 @@ pip3 install RPi.GPIO
 
 We need to do this because our virtual environment can't access the globally installed RPi.GPIO package
 
-### Configuration
+### The Stack
 
-#### JavaScript - Script.js
+#### JavaScript - Script.js - Frontend
+
 The `script.js` has jQuery that calls the Flask app using simple AJAX calls. They assume that the path for the flask app is `/api/kitchen` - 
 if you use another path, change this in the JavaScript to avoid getting 404s on your AJAX calls. You can also modify the API endpoints in `led/led.py` - I used 'kitchen'
 as the name because these will be controlling my kitchen cabinet lights.
@@ -72,7 +107,7 @@ as the name because these will be controlling my kitchen cabinet lights.
 I use a basic cache busting system in the JavaScript by looking at the current time for the request and appending it to the AJAX request looking for `status.txt` because 
 I've noticed that browsers love to store this in memory, especially mobile browsers. This ensures that we don't have to worry about caching. 
 
-#### Apache and WSGI
+#### Apache and WSGI - Web Server
 
 The `led.wsgi` file should be placed in the same directory as `led.py` which contains your Flask controllers. Make sure the paths for `activate_this.py` and `led.py` match
 your installation. If you rename the flask controller, you have edit the `wsgi` file to reflect the changes. 
@@ -97,6 +132,22 @@ If you get a WSGI error, your Pi may not have Mod-WSGI installed. Run the follow
 sudo apt install libapache2-mod-wsgi-py3 -y
 ``` 
 
+**Note** that the `multi` branch contains a line in the 
+configuration to enable `CORS` from all origins. If you don't want to enable CORS and want to handle these requests another way, remove this line in `apache-led.conf`:
+
+```
+Header set Access-Control-Allow-Origin "*"
+```
+
+IF you have this enable, you must enable `mod_headers` on your Pi with the following command for this to work:
+
+```bash
+sudo a2enmod headers
+```
+
+As long as you don't open your Pi to the outside world, you should be fine. You can also specify which origins are allowed to make requests.  
+
+
 If everything is set up correctly, the AJAX call will happen with the following url: `http://{{ip_addr}}/api/kitchen?status=on`
 
 Only a status of `on` or `off` are accepted. Anything else will return a simple error message. Open up the JavaScript console for more info.  
@@ -113,6 +164,9 @@ the path in `led.py` for the txt file must be an absolute path. Currently it is 
 
 Edit it if your path differs from this repo. 
 
+### API endpoints
+
+#### `/api/kitchen?status=on/off`
 
 ## Authors
 * **Nazmus Nasir** - [Nazm.us](https://nazm.us) - Owner of EasyProgramming.net

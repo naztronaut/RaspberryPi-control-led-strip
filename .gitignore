@@ -4,3 +4,5 @@ led/templates
 led/venv
 led/venv/*
 .idea
+venv
+venv/*
