@@ -6,7 +6,6 @@ Controlling kitchen cabinet lights from your browser with a Raspberry Pi Zero.
 <img src="./img/thumbnail.png" width="700px" alt="Kitchen Cabinet Raspberry Pi Lights">
 </center>
 
-
 ## Configurable options
 
 This config object allows you to configure whether or not you want to control a single Pi or two Pis (Kitchen Left and Right). 
@@ -21,6 +20,7 @@ let config = {
 
 If you don't want to control multiple lights, change `multi` to `false` and only fill out the `kitchenRight` property with the address. If you want both, make sure 
 `multi` is true and that both `kitchenRight` and `kitchenLeft` have valid Pi IP addresses. The smaller buttons will either show or be hidden based on your settings.
+
 
 ## Getting Started
 
@@ -97,6 +97,7 @@ We need to do this because our virtual environment can't access the globally ins
 ### The Stack
 
 #### JavaScript - Script.js - Frontend
+
 The `script.js` has jQuery that calls the Flask app using simple AJAX calls. They assume that the path for the flask app is `/api/kitchen` - 
 if you use another path, change this in the JavaScript to avoid getting 404s on your AJAX calls. You can also modify the API endpoints in `led/led.py` - I used 'kitchen'
 as the name because these will be controlling my kitchen cabinet lights.
@@ -145,6 +146,7 @@ sudo a2enmod headers
 ```
 
 As long as you don't open your Pi to the outside world, you should be fine. You can also specify which origins are allowed to make requests.  
+
 
 If everything is set up correctly, the AJAX call will happen with the following url: `http://{{ip_addr}}/api/kitchen?status=on`
 
