@@ -76,7 +76,7 @@ Here are the Pin usages for the Raspberry Pi:
 Connect the Power and Ground pins from your Pi to your relay module's VCC and GND connections. Connect GPIO Pin 18 from your Pi to your relay module's data pin as shown 
 in the fritz diagram below:
 
-TODO: Insert Fritz
+<img src="./img/led_strip_relay.jpg" width="700px" alt="Circuit Diagram for LED">
 
 ### Prerequisites
 The prerequisites for this tutorial is the same as the last because everything in this tutorial is the end product of what we've learned so far about 
