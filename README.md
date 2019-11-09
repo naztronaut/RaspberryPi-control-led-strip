@@ -43,7 +43,7 @@ required by Apache to function.  Also contains a `status.txt` which will be used
 ## Tutorial
 This is currently in progress And it is a newer version of the following repo: https://github.com/naztronaut/RaspberryPi-browser-led-control
 A full video tutorial can be found on YouTube at https://www.youtube.com/watch?v=1mtX4kB1EEA
-<a href="https://www.youtube.com/watch?v=c6FOpPXbLjs" target="_blank"><img src="./img/videoThumbnail.jpg" width="700px" alt="Raspberry Pi LED Strip Video Tutorial"></a>
+<a href="https://www.youtube.com/watch?v=1mtX4kB1EEA" target="_blank"><img src="./img/videoThumbnail.jpg" width="700px" alt="Raspberry Pi LED Strip Video Tutorial"></a>
 
 More information on the tutorial can be found at https://www.easyprogramming.net/raspberrypi/remote_control_led_strip.php
 
