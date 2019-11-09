@@ -3,9 +3,8 @@
 The end goal for me is to control my kitchen cabinet lights from a browser with a Raspberry Pi Zero. The end product for you could be different but this will teach you how
 to control an LED strip using a RPi and a Relay Module. 
 
-<center>
-<img src="./img/thumbnail.png" width="700px" alt="Kitchen Cabinet Raspberry Pi Lights">
-</center>
+<img src="./img/kitchenLights.gif" alt="Kitchen Cabinet Raspberry Pi Lights Demo Gif">
+
 
 ## Configurable options
 
@@ -122,6 +121,12 @@ I use a basic cache busting system in the JavaScript by looking at the current t
 I've noticed that browsers love to store this in memory, especially mobile browsers. This ensures that we don't have to worry about caching. 
 
 #### Apache and WSGI - Web Server
+
+If everything works well, after this step you should  be able to access your Pi using the IP address and see something like this:
+
+<center>
+<img src="./img/thumbnail.png" width="700px" alt="Kitchen Cabinet Raspberry Pi Lights">
+</center>
 
 The `led.wsgi` file should be placed in the same directory as `led.py` which contains your Flask controllers. Make sure the paths for `activate_this.py` and `led.py` match
 your installation. If you rename the flask controller, you have edit the `wsgi` file to reflect the changes. 
