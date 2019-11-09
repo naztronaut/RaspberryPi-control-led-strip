@@ -1,6 +1,7 @@
-# Raspberry Pi - Control Kitchen Cabinet lights
+# Raspberry Pi - Remote Control LED Strip 
 
-Controlling kitchen cabinet lights from your browser with a Raspberry Pi Zero.
+The end goal for me is to control my kitchen cabinet lights from a browser with a Raspberry Pi Zero. The end product for you could be different but this will teach you how
+to control an LED strip using a RPi and a Relay Module. 
 
 <center>
 <img src="./img/thumbnail.png" width="700px" alt="Kitchen Cabinet Raspberry Pi Lights">
@@ -41,10 +42,10 @@ required by Apache to function.  Also contains a `status.txt` which will be used
 
 ## Tutorial
 This is currently in progress And it is a newer version of the following repo: https://github.com/naztronaut/RaspberryPi-browser-led-control
-A full video tutorial can be found on YouTube at https://www.youtube.com/watch?v=c6FOpPXbLjs
-<a href="https://www.youtube.com/watch?v=c6FOpPXbLjs" target="_blank"><img src="https://www.easyprogramming.net/img/ledBrowserControl.png" width="700px" alt="Control an LED from a browser"></a>
+A full video tutorial can be found on YouTube at https://www.youtube.com/watch?v=1mtX4kB1EEA
+<a href="https://www.youtube.com/watch?v=c6FOpPXbLjs" target="_blank"><img src="./img/videoThumbnail.jpg" width="700px" alt="Raspberry Pi LED Strip Video Tutorial"></a>
 
-More information on the tutorial can be found at https://www.easyprogramming.net/raspberrypi/browser_control_led.php
+More information on the tutorial can be found at https://www.easyprogramming.net/raspberrypi/remote_control_led_strip.php
 
 ### Hardware
 
@@ -63,6 +64,19 @@ This is not necessary for the other versions of the Pi.
 and electric shocks!
 * [ ] *(Optional)* Soldering Iron - if you are comfortable, it is best to solder the lights and connections in place so they don't disconnect easily. 
 * [ ] Tools - a wire cutter/stripper would be most helpful to you.  
+
+Here are the Pin usages for the Raspberry Pi:
+
+| Color |  GPIO Pin |
+|-------|:---------:|
+| Power   |    Any 5v Pin     | 
+| Ground |    Any Ground Pin     |
+| Data/Blue  |    18     |
+
+Connect the Power and Ground pins from your Pi to your relay module's VCC and GND connections. Connect GPIO Pin 18 from your Pi to your relay module's data pin as shown 
+in the fritz diagram below:
+
+TODO: Insert Fritz
 
 ### Prerequisites
 The prerequisites for this tutorial is the same as the last because everything in this tutorial is the end product of what we've learned so far about 
